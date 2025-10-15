@@ -18,11 +18,15 @@ REAL_LITERAL [0-9]+\.[0-9]*([eE][+-]?[0-9]+)?
 STRING_LITERAL \"([^"\n\\]|\\.)*\"
 CHAR_LITERAL '([^'\n\\]|\\.)'
 IDENTIFIER [a-zA-Z][a-zA-Z0-9_]*
+TUBULACOES        [ \t]+
+QUEBRA_LINHAS     (\r\n|\r|\n)
+COMENTARIO_LINHA  "//".*
 
 %%
 
-[ \t\r\n]            ; // tabulações e quebras de linha
-\/\/.* ; // Comentários de linha
+{TUBULACOES}                         ;
+{QUEBRA_LINHAS}                      ;
+({TUBULACOES}|{QUEBRA_LINHAS})+{COMENTARIO_LINHA}
 
     
 "begin"             { printf("KEY_BEGIN\n"); }
